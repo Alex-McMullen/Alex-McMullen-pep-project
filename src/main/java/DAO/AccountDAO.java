@@ -42,11 +42,10 @@ public class AccountDAO
     /**
      * Login to an account given the username and password of said account
      * 
-     * @param username, the username of the account that is being logged into
-     * @param password, the password of the account that is being logged into
+     * @param account, an account object containing the username and password used to attempt to login
      * @return the account that was logged into
      */
-    public Account loginAccount(String username, String password)
+    public Account loginAccount(Account account)
     {
         Connection connection = ConnectionUtil.getConnection();
         try
@@ -54,16 +53,16 @@ public class AccountDAO
             String sql = "select * from account where username = ? and password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(1, account.getUsername());
+            preparedStatement.setString(2, account.getPassword());
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
             {
-                Account account = new Account(rs.getInt("account_id"),
+                Account newAccount = new Account(rs.getInt("account_id"),
                                 rs.getString("username"),
                                 rs.getString("password"));
-                return account;
+                return newAccount;
             }
         }
         catch(SQLException e)

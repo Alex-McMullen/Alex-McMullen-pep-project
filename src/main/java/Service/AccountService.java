@@ -31,7 +31,7 @@ public class AccountService
      * @param account, the account to be created
      * @return the created account
      */
-    public Account createAcount(Account account)
+    public Account createAccount(Account account)
     {
         if(accountDAO.getAccountByUsername(account.getUsername()) == null)
         {
@@ -46,15 +46,14 @@ public class AccountService
     /**
      * Use accountDAO to login to an account
      * 
-     * @param username, the username of the account to be logged into
-     * @param password, the password of the account to be logged into
+     * @param account, an account object containing the username and password used to attempt the login
      * @return the account that was logged into
      */
-    public Account loginAccount(String username, String password)
+    public Account loginAccount(Account account)
     {
-        if(accountDAO.getAccountByUsername(username) != null)
+        if(accountDAO.getAccountByUsername(account.getUsername()) != null)
         {
-            return accountDAO.loginAccount(username, password);
+            return accountDAO.loginAccount(account);
         }
         return null;
     }
