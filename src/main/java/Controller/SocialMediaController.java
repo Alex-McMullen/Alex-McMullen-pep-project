@@ -140,7 +140,11 @@ public class SocialMediaController {
     private void getMessageByIdHandler(Context context)
     {
         int message_id = Integer.parseInt(context.pathParam("message_id"));
-        context.json(messageService.getMessageById(message_id));
+        Message message = messageService.getMessageById(message_id);
+        if(message != null)
+        {
+            context.json(message);
+        }
     }
 
     /**

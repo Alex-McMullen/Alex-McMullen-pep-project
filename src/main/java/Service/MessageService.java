@@ -63,7 +63,11 @@ public class MessageService
      */
     public Message getMessageById(int id)
     {
-        return messageDAO.getMessageById(id);
+        if((Integer) id != null)
+        {
+            return messageDAO.getMessageById(id);
+        }
+        return null;
     }
 
     /**

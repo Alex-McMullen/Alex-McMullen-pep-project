@@ -20,7 +20,7 @@ public class MessageDAO
         Connection connection = ConnectionUtil.getConnection();
         try
         {
-            String sql = "insert into message (posted_by, message_text, time_posted_epoch) value (?, ?, ?) ";
+            String sql = "insert into message (posted_by, message_text, time_posted_epoch) values (?, ?, ?) ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setInt(1, message.getPosted_by());
@@ -162,12 +162,11 @@ public class MessageDAO
         Connection connection  = ConnectionUtil.getConnection();
         try
         {
-            String sql = "update message set posted_by = ?, message_text = ?, time_posted_epoch = ?";
+            String sql = "update message set message_text = ? where message_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setInt(1, message.getPosted_by());
-            preparedStatement.setString(2, message.getMessage_text());
-            preparedStatement.setLong(3, message.getTime_posted_epoch());
+            preparedStatement.setString(1, message.getMessage_text());
+            preparedStatement.setInt(2, id);
 
             preparedStatement.executeUpdate();
         }
